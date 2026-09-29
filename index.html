@@ -422,10 +422,21 @@ const DATA = {
             info: "Bài hát (đầu máy 4K + 5S),\nTương tác iPad 4K",
             kpis: [ "Tỉ lệ bài hát 4K", "Tỉ lệ lỗi / số bài hát phát", "Tỉ lệ tương tác app công nghệ 4K" ] }
         ] },
-        { name: "CSKH", report: "Báo cáo Đặt phòng, Lỗi Hotline & MXH",
-        status: "building", tool: "Power BI",
-          info: "Đặt phòng\nLỗi HOTLINE & MXH\nBỏ tua & FULL phòng",
-          kpis: [ "Tỉ lệ phát hiện lỗi / số bill", "Tỉ lệ lỗi / CGTC", "Tỉ lệ đặt phòng / số bill" ] }
+        { name: "CSKH", children: [
+          { name: "Đặt phòng", report: "Báo cáo Đặt phòng",
+            status: "building", tool: "Power BI",
+            info: "Đặt phòng",
+            kpis: [ "Tỉ lệ đặt phòng / số bill" ] },
+          { name: "Lỗi HOTLINE & MXH", report: "Báo cáo Lỗi Hotline & MXH",
+            status: "building", tool: "Power BI",
+            info: "Lỗi HOTLINE & MXH",
+            kpis: [ "Tỉ lệ phát hiện lỗi / số bill", "Tỉ lệ lỗi / CGTC" ] },
+          { name: "Bỏ tua & FULL phòng", report: "Báo cáo Bỏ tua & Full phòng",
+            status: "building", tool: "Power BI",
+            info: "Bỏ tua & FULL phòng",
+            note: "Chưa có KPI đề xuất riêng cho nhánh này.",
+            kpis: [] }
+        ] }
       ]
     },
     {
