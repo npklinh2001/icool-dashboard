@@ -45,7 +45,7 @@ export async function POST(request: Request) {
   const attemptKey = `${getClientAddress(request)}|${body.sale.toLowerCase()}`;
   if (loginRateLimiter.isBlocked(attemptKey)) {
     logger.warn('login blocked by rate limiter', { sale: body.sale });
-    return errorResponse('Đăng nhập sai quá nhiều lần, vui lòng thử lại sau', 429);
+    return errorResponse('Đăng nhập sai quá 10 lần, vui lòng thử lại sau 5 phút', 429);
   }
 
   try {

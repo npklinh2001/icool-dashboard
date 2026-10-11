@@ -61,7 +61,7 @@ export function LoginForm() {
         </svg>
       </div>
       <h1>ICOOL RASA TACO</h1>
-      <p className="login-sub">Đăng nhập để xem Bản đồ Dashboard</p>
+      <p className="login-sub">Đăng nhập bằng App Icool Staff để xem</p>
       <label className="login-field">
         Tên đăng nhập
         <input
