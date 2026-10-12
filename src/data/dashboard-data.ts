@@ -16,7 +16,7 @@ export const DASHBOARD_DATA: SourceNode = {
             {
               name: 'Doanh thu',
               author: 'Nguyễn Phan Khánh Linh',
-              viewers: ['Ban Giám đốc', 'Giám đốc vùng', 'Quản lí chi nhánh', 'P.MKT (Sale)'],
+              viewers: ['Ban Giám đốc', 'Giám đốc vùng', 'Quản lí chi nhánh', 'P.MKT (Sale, KDV)'],
               contact: '0969320414',
               report: 'Báo cáo Hoạt động kinh doanh',
               status: 'live',
@@ -208,7 +208,7 @@ export const DASHBOARD_DATA: SourceNode = {
           info: 'Lương, lộ trình thăng tiến',
           status: 'live',
           tool: 'Power BI',
-          kpis: ['Tỉ lệ lương / doanh thu (Khối VP & CN)', 'Tỉ lệ giờ công trên bill'],
+          kpis: ['Tỉ lệ lương / doanh thu (Khối VP & CN)', 'Tỉ lệ giờ công trên bill', 'Doanh thu và lỗi'],
         },
         {
           name: 'Tuyển dụng',
