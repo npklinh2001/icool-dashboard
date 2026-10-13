@@ -95,6 +95,19 @@ export function Header(props: HeaderProps) {
           </StrokeIcon>
           <span className="lbl">Thu gọn</span>
         </button>
+        <a
+          className="btn"
+          title="Hướng dẫn sử dụng (PDF)"
+          href="/huong-dan"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <StrokeIcon>
+            <path d="M4 5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2V5z" />
+            <path d="M4 19a2 2 0 0 1 2-2h12M9 7h5M9 11h5" />
+          </StrokeIcon>
+          <span className="lbl">Hướng dẫn</span>
+        </a>
         <button className="btn icon" title="Đổi giao diện sáng/tối" onClick={props.onToggleTheme}>
           <StrokeIcon>
             <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
