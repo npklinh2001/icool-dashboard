@@ -97,7 +97,7 @@ export function Header(props: HeaderProps) {
         </button>
         <a
           className="btn"
-          title="Hướng dẫn sử dụng (PDF)"
+          title="Hướng dẫn sử dụng (video + PDF)"
           href="/huong-dan"
           target="_blank"
           rel="noopener noreferrer"
