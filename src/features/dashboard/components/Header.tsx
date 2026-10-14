@@ -25,6 +25,8 @@ interface HeaderProps {
 
 const SUPPORT_REQUEST_URL =
   'https://docs.google.com/forms/d/e/1FAIpQLScc4eT3XEch2zEJpbmhF7lJfzQiGAi9UDt-RPyIuEoGHxGpCg/viewform?usp=dialog';
+const PROGRESS_TRACKING_URL =
+  'https://docs.google.com/spreadsheets/d/1K4YDeo5Yh9R05r5p9oNKDKHIGfECtDl5UhoO1V4QFQw/edit?usp=sharing';
 
 const STATUS_ORDER =Object.keys(STATUS_LABELS) as ReportStatus[];
 
@@ -123,6 +125,19 @@ export function Header(props: HeaderProps) {
             <path d="M9.5 9.5a2.5 2.5 0 1 1 3.2 2.4c-.5.2-.7.6-.7 1.1M12 16h.01" />
           </StrokeIcon>
           <span className="lbl">Yêu cầu hỗ trợ</span>
+        </a>
+        <a
+          className="btn"
+          title="Theo dõi tiến độ công việc"
+          href={PROGRESS_TRACKING_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <StrokeIcon>
+            <rect x="4" y="3" width="16" height="18" rx="2" />
+            <path d="m8 8 1.5 1.5L12 7M8 14l1.5 1.5L12 13M14.5 8.5H16M14.5 14.5H16" />
+          </StrokeIcon>
+          <span className="lbl">Tiến độ</span>
         </a>
         <button className="btn icon" title="Đổi giao diện sáng/tối" onClick={props.onToggleTheme}>
           <StrokeIcon>
