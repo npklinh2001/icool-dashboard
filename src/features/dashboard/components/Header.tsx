@@ -23,7 +23,10 @@ interface HeaderProps {
   onLogout: () => void;
 }
 
-const STATUS_ORDER = Object.keys(STATUS_LABELS) as ReportStatus[];
+const SUPPORT_REQUEST_URL =
+  'https://docs.google.com/forms/d/e/1FAIpQLScc4eT3XEch2zEJpbmhF7lJfzQiGAi9UDt-RPyIuEoGHxGpCg/viewform?usp=dialog';
+
+const STATUS_ORDER =Object.keys(STATUS_LABELS) as ReportStatus[];
 
 export function Header(props: HeaderProps) {
   const { statusCounts } = props;
@@ -107,6 +110,19 @@ export function Header(props: HeaderProps) {
             <path d="M4 19a2 2 0 0 1 2-2h12M9 7h5M9 11h5" />
           </StrokeIcon>
           <span className="lbl">Hướng dẫn</span>
+        </a>
+        <a
+          className="btn"
+          title="Điền thông tin yêu cầu hỗ trợ - Team DATA"
+          href={SUPPORT_REQUEST_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <StrokeIcon>
+            <path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z" />
+            <path d="M9.5 9.5a2.5 2.5 0 1 1 3.2 2.4c-.5.2-.7.6-.7 1.1M12 16h.01" />
+          </StrokeIcon>
+          <span className="lbl">Yêu cầu hỗ trợ</span>
         </a>
         <button className="btn icon" title="Đổi giao diện sáng/tối" onClick={props.onToggleTheme}>
           <StrokeIcon>
