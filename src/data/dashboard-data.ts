@@ -198,14 +198,14 @@ export const DASHBOARD_DATA: SourceNode = {
           children: [
             {
               name: 'Cuốc xe',
-              author: '',
-              viewers: [],
+              author: 'Lê Tuấn Khôi',
+              viewers: ['Ban giám đốc'],
               url: '/cuoc-xe',
-              contact: '',
+              contact: '0945645996',
               report: 'Báo cáo Cuốc xe',
               status: 'live',
               tool: 'Web',
-              info: 'Cuốc xe',
+              info: 'Các cuốc xe đón khách tới, và đưa khách về nhà => Phân tích hành vi khách hàng',
               kpis: [],
               // Same list the /cuoc-xe route enforces
               allowedSales: CUOC_XE_ALLOWED_SALES,
