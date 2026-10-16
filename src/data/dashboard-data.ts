@@ -1,4 +1,5 @@
 import type { SourceNode } from '@/features/dashboard/types';
+import { CUOC_XE_ALLOWED_SALES } from '@/lib/auth/report-access';
 
 // Edit the report tree here. Server-only: it is passed to the client only after login.
 export const DASHBOARD_DATA: SourceNode = {
@@ -206,6 +207,8 @@ export const DASHBOARD_DATA: SourceNode = {
               tool: 'Web',
               info: 'Cuốc xe',
               kpis: [],
+              // Same list the /cuoc-xe route enforces
+              allowedSales: CUOC_XE_ALLOWED_SALES,
             },
           ],
         },

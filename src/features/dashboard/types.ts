@@ -32,6 +32,8 @@ export interface SourceNode {
   refresh?: string;
   source?: string;
   url?: string;
+  // Only these sale codes see the node (and its children); omitted means everyone
+  allowedSales?: readonly string[];
 }
 
 export type NodeKind = 'root' | 'khoi' | 'group' | 'leaf';

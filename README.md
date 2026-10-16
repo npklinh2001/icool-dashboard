@@ -34,7 +34,8 @@ The user guide lives at `docs/huong-dan-su-dung-dashboard.pdf` and is served by 
 The Bee/Grab ride map built by the separate `cuoc-xe-dashboard` repo is hosted inside this app, so it needs no hosting of its own.
 
 - **Tree entry:** KHỐI KINH DOANH → Phát triển địa điểm → Cuốc xe, linking to `/cuoc-xe`.
-- **Access:** `src/app/cuoc-xe/[[...path]]/route.ts` serves the files to signed-in users only and redirects everyone else to `/login`. The files contain internal pickup/drop-off addresses, so they live in `reports/cuoc-xe/` and must never go in `/public`.
+- **Access:** only the sale codes in `CUOC_XE_ALLOWED_SALES` (`src/lib/auth/report-access.ts`, currently `2923` and `250475`) can open it. `src/app/cuoc-xe/[[...path]]/route.ts` redirects signed-out visitors to `/login` and answers 403 to every other user, and the home page hides the Cuốc xe entry (and the then-empty Phát triển địa điểm branch) from them. Edit that list to grant or revoke access. The files contain internal pickup/drop-off addresses, so they live in `reports/cuoc-xe/` and must never go in `/public`.
+- **Restricting other reports:** add `allowedSales: [...]` to any node in `src/data/dashboard-data.ts` to hide it from everyone else. This only hides the tree entry; a report served by this app must also check the list in its route, as `/cuoc-xe` does.
 - **Files:** `reports/cuoc-xe/` is a copy of `cuoc-xe-dashboard/CUOC_XE_WEB/dist`. Only `.html`, `.js`, `.css`, `.png` and `.svg` files are served; hidden files and paths outside the folder return 404.
 - **Size:** `data.js` is ~24 MB. Next does not compress Route Handler responses, so the sync script writes `.gz` copies and the route sends those (~4 MB) to browsers that accept gzip.
 

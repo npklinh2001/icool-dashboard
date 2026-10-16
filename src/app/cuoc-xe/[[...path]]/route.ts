@@ -3,10 +3,11 @@ import { readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { Readable } from 'node:stream';
 import { NextResponse } from 'next/server';
+import { CUOC_XE_ALLOWED_SALES, isSaleAllowed } from '@/lib/auth/report-access';
 import { getCurrentUser } from '@/lib/auth/session';
 
 // Serves the static ride map build in reports/cuoc-xe (copied by `npm run sync:cuoc-xe`).
-// Kept outside /public so the internal trip data is only served to signed-in users.
+// Kept outside /public so the internal trip data only reaches the allowed signed-in users.
 const BASE_PATH = '/cuoc-xe/';
 
 const CONTENT_TYPES: Record<string, string> = {
@@ -22,6 +23,15 @@ export const dynamic = 'force-dynamic';
 export async function GET(request: Request, ctx: { params: Promise<{ path?: string[] }> }) {
   const user = await getCurrentUser();
   if (!user) return NextResponse.redirect(new URL('/login', request.url));
+  if (!isSaleAllowed(user.sale, CUOC_XE_ALLOWED_SALES)) {
+    return new NextResponse('Bạn không có quyền xem báo cáo này.', {
+      status: 403,
+      headers: {
+        'Content-Type': 'text/plain; charset=utf-8',
+        'Cache-Control': 'private, no-store',
+      },
+    });
+  }
 
   const segments = (await ctx.params).path ?? ['index.html'];
   // No segment may be empty, hidden, ".." or contain a separator, so the path stays inside the site
