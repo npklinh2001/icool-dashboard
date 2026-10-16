@@ -29,17 +29,27 @@ Edit `src/data/dashboard-data.ts` (same structure as the original `index.html`).
 
 The user guide lives at `docs/huong-dan-su-dung-dashboard.pdf` and is served by `GET /huong-dan` to signed-in users only (the "Hướng dẫn" button in the header). Replace that file to update the guide.
 
+## Ride map (Cước xe)
+
+The static ride map from the `cuoc-xe-dashboard` repo is served at `/cuoc-xe` to signed-in users only. Its files live in `reports/cuoc-xe/` (outside `/public`, because they contain internal trip addresses).
+
+To update it after rebuilding `cuoc-xe-dashboard/CUOC_XE_WEB/dist`:
+
+1. `npm run sync:cuoc-xe` (defaults to `../cuoc-xe-dashboard/CUOC_XE_WEB/dist`; pass another path with `npm run sync:cuoc-xe -- <path>`). It also writes `.gz` copies, which the route sends to browsers that accept gzip.
+2. Commit `reports/cuoc-xe` and redeploy.
+
 ## Scripts
 
-| Command                 | Purpose              |
-| ----------------------- | -------------------- |
-| `npm run dev`           | Development server   |
-| `npm run build`         | Production build     |
-| `npm test`              | Unit tests (Vitest)  |
-| `npm run test:coverage` | Tests with coverage  |
-| `npm run lint`          | ESLint               |
-| `npm run typecheck`     | TypeScript check     |
-| `npm run format`        | Prettier             |
+| Command                 | Purpose             |
+| ----------------------- | ------------------- |
+| `npm run dev`           | Development server  |
+| `npm run build`         | Production build    |
+| `npm test`              | Unit tests (Vitest) |
+| `npm run test:coverage` | Tests with coverage |
+| `npm run lint`          | ESLint              |
+| `npm run typecheck`     | TypeScript check    |
+| `npm run format`        | Prettier            |
+| `npm run sync:cuoc-xe`  | Copy ride map build |
 
 ## Deploy
 

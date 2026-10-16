@@ -10,7 +10,8 @@
     "format": "prettier --write .",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "sync:cuoc-xe": "node scripts/sync-cuoc-xe.mjs"
   },
   "dependencies": {
     "bcryptjs": "3.0.3",

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <script>
+    window.addEventListener('error', function (event) {
+      if (!(event.message || (event.target && event.target.tagName === 'SCRIPT'))) return;
+      var box = document.getElementById('status');
+      if (!box) return;
+      box.hidden = false; box.classList.add('error');
+      box.textContent = 'Trang chưa tải đủ dữ liệu hoặc gặp lỗi. Hãy tải lại bằng Ctrl+F5.';
+    }, true);
+  </script>
+  <title>Cuốc xe · ICOOL</title>
+  <link rel="stylesheet" href="vendor/leaflet.css">
+  <link rel="stylesheet" href="styles.css?v=236f1a9063e4">
+  <script defer src="vendor/leaflet.js"></script>
+  <script defer src="data.js?v=06872f49d302"></script>
+  <script defer src="ride-core.js?v=89635a91414b"></script>
+  <script defer src="report-core.js?v=870813c56165"></script>
+  <script defer src="report-ui.js?v=ea9d5bd43be7"></script>
+  <script defer src="app.js?v=3f83a98be53a"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="wordmark" href="./"><span class="logo">↗</span><span>ICOOL <i>BẢN ĐỒ CUỐC XE</i></span></a>
+    <span class="dataset-tag" id="dataset-period">Đang đọc kỳ dữ liệu…</span>
+  </header>
+  <main>
+    <div class="page-heading">
+      <div><p class="eyebrow">BẢN ĐỒ HÀNH VI DI CHUYỂN</p><h1>Cuốc xe đưa đón</h1><p class="subtitle">Xem hai đầu chuyến đi, vùng phục vụ và thay đổi cùng kỳ.</p></div>
+      <label class="compare-toggle"><input id="compare" type="checkbox"><span>So sánh cùng kỳ</span></label>
+    </div>
+    <section class="filters" aria-label="Bộ lọc dữ liệu">
+      <label>Năm<select id="year"><option value="">Đang đọc…</option></select></label>
+      <label>Tháng<select id="month"><option value="">Đang đọc…</option></select></label>
+      <label>Dịch vụ<select id="provider"><option value="all">Bee + Grab</option><option value="0">Bee</option><option value="1">Grab</option></select></label>
+      <label>Đặt theo<select id="basis"><option value="endpoint">Chi nhánh đầu chuyến</option><option value="unit">Đơn vị đặt xe</option></select></label>
+      <label>Loại kinh doanh<select id="kind"><option value="ICOOL">ICOOL</option><option value="RASA">RASA (đang cập nhật)</option></select></label>
+      <div class="filter-field"><span>Chi nhánh</span><details class="branch-picker" id="branch-picker"><summary id="branch-summary">Tất cả chi nhánh</summary><div class="branch-menu"><label class="branch-choice"><input type="checkbox" id="branch-all" checked>Tất cả chi nhánh</label><div id="branch-options"></div></div></details></div>
+      <button id="reset" class="button secondary" type="button">Đặt lại</button>
+    </section>
+    <div class="viewbar">
+      <div class="tabs" role="tablist" aria-label="Chế độ xem"><button class="active" id="tab-start" role="tab" aria-selected="true" aria-controls="map-view" data-direction="start" data-view="map">↗ Điểm đi</button><button id="tab-end" role="tab" aria-selected="false" aria-controls="map-view" data-direction="end" data-view="map">↙ Điểm đến</button><button id="tab-report" role="tab" aria-selected="false" aria-controls="report-view" data-view="report">Báo cáo</button><button id="tab-errors" role="tab" aria-selected="false" aria-controls="error-view" data-view="errors">Dữ liệu cần kiểm tra</button></div>
+      <span id="direction-note">Với cuốc xe tới chi nhánh: xem nơi đón khách. Hai tab hiển thị hai đầu của cùng nhóm cuốc.</span>
+    </div>
+    <div id="status" class="notice" role="status" aria-live="polite">Đang tải dữ liệu cuốc xe…</div>
+    <div id="map-view" role="tabpanel">
+    <section id="metrics" class="metrics" aria-label="Tổng quan"></section>
+    <section class="map-section" id="map-section" aria-label="Bản đồ cuốc xe">
+      <div class="map-toolbar"><div class="legend" id="map-legend"></div><div class="map-actions"><label><input id="circles" type="checkbox" checked>Vòng 3 km</label><label><input id="outside" type="checkbox">Chỉ ngoài 3 km</label><button id="fit" class="button secondary" type="button">Xem toàn bộ điểm</button></div></div>
+      <div class="maps" id="maps"><article class="map-panel" id="panel-primary"><div class="map-title"><strong id="title-primary">2026</strong><span id="count-primary"></span></div><div id="map-primary" class="map" aria-label="Bản đồ năm được chọn"></div><p id="quality-primary" class="map-foot"></p></article><article class="map-panel" id="panel-compare"><div class="map-title"><strong id="title-compare">2025</strong><span id="count-compare"></span></div><div id="map-compare" class="map" aria-label="Bản đồ cùng kỳ"></div><p id="quality-compare" class="map-foot"></p></article></div>
+      <div class="map-help">Hai bản đồ kéo và thu phóng cùng nhau. Bấm chấm để xem hai đầu chuyến. Chấm lớn hơn nghĩa là có nhiều cuốc ở vị trí đó.</div>
+    </section>
+    </div>
+    <section id="report-view" role="tabpanel" hidden>
+      <div class="report-heading"><div><p class="eyebrow">PHÂN TÍCH CUỐC XE</p><h2>Báo cáo di chuyển</h2><p class="muted">Tới chi nhánh: chi nhánh ở đầu đến. Từ chi nhánh: chi nhánh ở đầu đi.</p></div></div>
+      <nav class="analysis-tabs" role="tablist" aria-label="Phân tích theo"><button type="button" class="active" role="tab" aria-selected="true" data-analysis="hour">Khung giờ</button><button type="button" role="tab" aria-selected="false" data-analysis="day">Ngày</button><button type="button" role="tab" aria-selected="false" data-analysis="month">Tháng</button><button type="button" role="tab" aria-selected="false" data-analysis="branch">Chi nhánh</button><button type="button" role="tab" aria-selected="false" data-analysis="trend">Xu hướng</button></nav>
+      <label class="report-metric">Chỉ tiêu <select id="report-metric"><option value="2">Tổng cuốc</option><option value="0">Tới chi nhánh</option><option value="1">Từ chi nhánh</option></select></label>
+      <section class="report-stats" id="report-stats" aria-label="Số cuốc trong báo cáo"></section>
+      <article class="card report-card"><div class="card-heading"><h2 id="report-title">Cuốc xe theo khung giờ</h2><span id="report-period"></span></div><p class="muted" id="report-scope"></p><div class="chart-legend" id="report-legend"></div><p class="report-warning" id="report-warning" role="status"></p><div class="report-chart" id="report-chart"></div><p class="muted" id="report-note"></p></article>
+      <details class="report-extras"><summary>Luồng di chuyển và vị trí ngoài 3 km</summary><section class="analysis-grid">
+      <article class="card"><div class="card-heading"><h2>Luồng di chuyển đi → đến</h2><span id="flows-year"></span></div><div id="flows"></div><p class="muted">Có chi nhánh thì hiện tên chi nhánh; ô trống thì dùng tên địa điểm hoặc địa chỉ của đúng đầu đi/đến.</p></article>
+      <article class="card"><div class="card-heading"><h2>Vị trí ngoài vùng 3 km</h2><span>Bấm để xem trên bản đồ</span></div><div id="hotspots"></div><p class="muted">Những vị trí có nhiều cuốc nhất được xếp trước.</p></article>
+    </section></details>
+    </section>
+    <section id="error-view" class="card error-view" role="tabpanel" hidden>
+      <div class="card-heading"><h2>Dữ liệu cần kiểm tra thêm</h2><span id="error-count"></span></div>
+      <div class="error-filters"><label>Đầu chuyến<select id="error-direction"><option value="start">Đi</option><option value="end">Đến</option><option value="both">Cả hai</option></select></label><label>Cần kiểm tra<select id="error-type"><option value="coordinates">Điểm chưa xác định</option><option value="lookup">Địa chỉ / chi nhánh</option><option value="swapped">Điểm đã đổi tọa độ</option><option value="all">Tất cả</option></select></label><label>File<select id="error-source"><option value="all">Tất cả file</option></select></label></div>
+      <p class="muted">Tra đúng file, sheet và dòng Excel dưới đây. Không hiển thị tên người đi hay địa chỉ cá nhân.</p>
+      <div class="table-scroll"><table class="error-table"><thead><tr><th>STT</th><th>File</th><th>Sheet</th><th>Dòng Excel</th><th>Đi / Đến</th><th>Cần kiểm tra</th></tr></thead><tbody id="error-rows"></tbody></table></div>
+      <div class="pagination"><button id="error-prev" class="button secondary" type="button">← Trước</button><span id="error-page"></span><button id="error-next" class="button secondary" type="button">Sau →</button></div>
+    </section>
+    <details class="method"><summary>Cách đọc bản đồ</summary><div>
+      <p><b>Đi / Đến:</b> lần lượt là điểm xuất phát / kết thúc thực tế. Chưa tự suy luận đây là khách hay nhân viên, hoặc chuyến đón / trả khách.</p>
+      <p><b>Loại kinh doanh:</b> hiện dùng bộ dữ liệu cuốc xe ICOOL. Nhãn phòng ban không có nghĩa là RASA/TACO đã có đưa đón. RASA đang cập nhật, chưa có dữ liệu để vẽ.</p>
+      <p><b>Đặt theo:</b> “Đơn vị đặt xe” lọc theo phòng ban đặt chuyến; Grab chưa có thông tin này. “Chi nhánh đầu chuyến” giữ cuốc đi từ hoặc đến chi nhánh đã chọn, đọc cả hai cột chi nhánh. Tab Đi/Đến chỉ chọn đầu chuyến để vẽ. Chọn nhiều chi nhánh được.</p>
+      <p><b>Vòng 3 km:</b> chỉ vẽ quanh chi nhánh bạn chọn; chọn Tất cả thì dùng các chi nhánh ICOOL. Khoảng cách tính đến chi nhánh gần nhất trong số đó, không phải quãng đường xe chạy.</p>
+      <p><b>Danh mục chi nhánh:</b> dùng danh mục chi nhánh hiện tại, chưa có lịch sử ngày mở/đóng; vòng tròn không phản ánh chắc chắn mạng lưới từng tháng 2025. Văn phòng và kho bếp không tính là chi nhánh khách hàng. Tọa độ CSV chưa được xác minh thực địa.</p>
+      <p><b>Tọa độ:</b> cặp lat/lng hợp lý ở Việt Nam được giữ; cặp đảo rõ ràng được đổi thứ tự trong dữ liệu hiển thị. Thiếu, 0, không phải số và điểm ngoài khung kiểm tra Việt Nam bị loại khỏi bản đồ, vẫn tính vào tổng cuốc. Khớp khung tọa độ chưa chứng minh địa chỉ chính xác.</p>
+      <p><b>Địa chỉ lệch số nhà:</b> tra thêm từ Sheet2 và lookup riêng. Điểm cách chi nhánh dưới 150m nhưng chưa khớp địa chỉ được đưa vào danh sách cần rà; không tự gán chi nhánh chỉ vì ở gần. Điểm đã gán chi nhánh nhưng cách ghim hơn 500m cũng cần kiểm tra. Đây là ngưỡng để rà soát, chưa khẳng định dữ liệu sai.</p>
+      <p><b>Số điểm:</b> mỗi cuốc có một điểm đi và một điểm đến. Các cuốc ở cùng vị trí được gom thành một chấm, nhưng số đếm vẫn giữ đủ cuốc. Tỷ lệ ngoài 3 km chỉ tính các điểm có thể vẽ.</p>
+      <p><b>Thông tin hai đầu chuyến:</b> chi nhánh đi được đọc cùng tên/địa chỉ điểm đi; chi nhánh đến đọc cùng tên/địa chỉ điểm đến. Ô chi nhánh trống không có nghĩa là mất địa điểm. Tên địa điểm tra được và địa chỉ lúc đặt được giữ riêng trong phần xem cuốc.</p>
+      <p><b>Báo cáo:</b> chọn Tổng cuốc, Tới hoặc Từ chi nhánh. Tổng cuốc đếm mỗi cuốc một lần trong từng cột; không cộng các cột chi nhánh thành tổng hệ thống vì cuốc liên nhánh có thể thuộc cả hai nhánh. Tới/Từ dựa trên nhánh ở đúng đầu chuyến, kể cả thiếu tọa độ. Khung giờ/ngày tính theo thời điểm xuất phát. Tháng và Xu hướng xem cả năm; Xu hướng vẽ từng ngày, nét đứt thể hiện chiều tăng/giảm chung, không phải dự báo.</p>
+      <p><b>Dữ liệu local:</b> chỉ dùng các cột địa điểm, chi nhánh và thời gian; không xuất các cột người đi, mã nhân viên, mã cuốc, email hay số điện thoại. Dữ liệu cần kiểm tra chỉ ghi file, sheet, dòng và lý do.</p>
+      <p>Thư viện bản đồ: <a href="https://leafletjs.com/reference.html" target="_blank" rel="noopener">Leaflet</a>. Nền bản đồ: <a href="https://operations.osmfoundation.org/policies/tiles/" target="_blank" rel="noopener">OpenStreetMap</a>; cần Internet và mở qua server HTTP.</p>
+    </div></details>
+    <footer>ICOOL · <span id="footer-period">Đang đọc dữ liệu…</span> · <span id="total-source"></span></footer>
+  </main>
+  <noscript>Hãy bật JavaScript để xem bản đồ.</noscript>
+</body>
+</html>

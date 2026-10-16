@@ -199,7 +199,7 @@ export const DASHBOARD_DATA: SourceNode = {
               name: 'Cước xe',
               author: '',
               viewers: [],
-              url: 'http://127.0.0.1:8000/CUOC_XE_WEB/dist/',
+              url: '/cuoc-xe',
               contact: '',
               report: 'Báo cáo Cước xe',
               status: 'live',
