@@ -29,14 +29,20 @@ Edit `src/data/dashboard-data.ts` (same structure as the original `index.html`).
 
 The user guide lives at `docs/huong-dan-su-dung-dashboard.pdf` and is served by `GET /huong-dan` to signed-in users only (the "Hướng dẫn" button in the header). Replace that file to update the guide.
 
-## Ride map (Cước xe)
+## Ride map (Cuốc xe)
 
-The static ride map from the `cuoc-xe-dashboard` repo is served at `/cuoc-xe` to signed-in users only. Its files live in `reports/cuoc-xe/` (outside `/public`, because they contain internal trip addresses).
+The Bee/Grab ride map built by the separate `cuoc-xe-dashboard` repo is hosted inside this app, so it needs no hosting of its own.
 
-To update it after rebuilding `cuoc-xe-dashboard/CUOC_XE_WEB/dist`:
+- **Tree entry:** KHỐI KINH DOANH → Phát triển địa điểm → Cuốc xe, linking to `/cuoc-xe`.
+- **Access:** `src/app/cuoc-xe/[[...path]]/route.ts` serves the files to signed-in users only and redirects everyone else to `/login`. The files contain internal pickup/drop-off addresses, so they live in `reports/cuoc-xe/` and must never go in `/public`.
+- **Files:** `reports/cuoc-xe/` is a copy of `cuoc-xe-dashboard/CUOC_XE_WEB/dist`. Only `.html`, `.js`, `.css`, `.png` and `.svg` files are served; hidden files and paths outside the folder return 404.
+- **Size:** `data.js` is ~24 MB. Next does not compress Route Handler responses, so the sync script writes `.gz` copies and the route sends those (~4 MB) to browsers that accept gzip.
 
-1. `npm run sync:cuoc-xe` (defaults to `../cuoc-xe-dashboard/CUOC_XE_WEB/dist`; pass another path with `npm run sync:cuoc-xe -- <path>`). It also writes `.gz` copies, which the route sends to browsers that accept gzip.
-2. Commit `reports/cuoc-xe` and redeploy.
+Monthly update:
+
+1. In `cuoc-xe-dashboard`, add the new month's files and run `CUOC_XE_WEB/CAP_NHAT_WEB.cmd` (see its `HUONG_DAN.md`).
+2. Here, run `npm run sync:cuoc-xe`. It reads `../cuoc-xe-dashboard/CUOC_XE_WEB/dist` by default; pass another path with `npm run sync:cuoc-xe -- <path>`.
+3. Commit `reports/cuoc-xe` and redeploy.
 
 ## Scripts
 

@@ -196,15 +196,15 @@ export const DASHBOARD_DATA: SourceNode = {
           name: 'Phát triển địa điểm',
           children: [
             {
-              name: 'Cước xe',
+              name: 'Cuốc xe',
               author: '',
               viewers: [],
               url: '/cuoc-xe',
               contact: '',
-              report: 'Báo cáo Cước xe',
+              report: 'Báo cáo Cuốc xe',
               status: 'live',
               tool: 'Web',
-              info: 'Cước xe',
+              info: 'Cuốc xe',
               kpis: [],
             },
           ],
