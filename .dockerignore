@@ -1,0 +1,5 @@
+*
+!.next/standalone
+!.next/static
+!reports
+!docs

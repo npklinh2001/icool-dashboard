@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  vtcode-web-client:
+    image: phuonglk/dashboard-linhnpk
+    ports:
+      - '127.0.0.1:3993:3000'
+    env_file:
+      - .env
+    restart: always

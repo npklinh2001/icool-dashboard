@@ -11,7 +11,8 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "sync:cuoc-xe": "node scripts/sync-cuoc-xe.mjs"
+    "sync:cuoc-xe": "node scripts/sync-cuoc-xe.mjs",
+    "deploy": "npm run build && docker build -t phuonglk/dashboard-linhnpk . --platform linux/amd64 && docker push phuonglk/dashboard-linhnpk"
   },
   "dependencies": {
     "bcryptjs": "3.0.3",
