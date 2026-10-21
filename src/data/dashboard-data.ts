@@ -365,7 +365,7 @@ export const DASHBOARD_DATA: SourceNode = {
           name: 'IC',
           author: '',
           viewers: ['Ban Giám đốc', 'Trưởng Khối Kiểm soát nội bộ', 'Quản lý chi nhánh'],
-          url: '',
+          url: 'https://app.powerbi.com/Redirect?action=OpenApp&appId=c663220c-cb97-41d0-a1a0-ddfcb8723767&ctid=b9f86305-291b-4050-9c47-58ac594b81f3&experience=power-bi',
           contact: '',
           info: 'Lỗi nội bộ.',
           status: 'building',
