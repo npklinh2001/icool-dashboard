@@ -29,21 +29,21 @@ Edit `src/data/dashboard-data.ts` (same structure as the original `index.html`).
 
 The user guide lives at `docs/huong-dan-su-dung-dashboard.pdf` and is served by `GET /huong-dan` to signed-in users only (the "Hướng dẫn" button in the header). Replace that file to update the guide.
 
-## Ride map (Cuốc xe)
+## Restricting reports
 
-The Bee/Grab ride map built by the separate `cuoc-xe-dashboard` repo is hosted inside this app, so it needs no hosting of its own.
+Add `allowedSales: [...]` (sale codes from `dbo.NhanVien2.sale`) to any node in `src/data/dashboard-data.ts` to hide it, and any branch left empty by it, from everyone else. This only hides the tree entry; a report served by this app must also check the list in its own route.
 
-- **Tree entry:** KHỐI KINH DOANH → Phát triển địa điểm → Cuốc xe, linking to `/cuoc-xe`.
-- **Access:** only the sale codes in `CUOC_XE_ALLOWED_SALES` (`src/lib/auth/report-access.ts`, currently `2923` and `250475`) can open it. `src/app/cuoc-xe/[[...path]]/route.ts` redirects signed-out visitors to `/login` and answers 403 to every other user, and the home page hides the Cuốc xe entry (and the then-empty Phát triển địa điểm branch) from them. Edit that list to grant or revoke access. The files contain internal pickup/drop-off addresses, so they live in `reports/cuoc-xe/` and must never go in `/public`.
-- **Restricting other reports:** add `allowedSales: [...]` to any node in `src/data/dashboard-data.ts` to hide it from everyone else. This only hides the tree entry; a report served by this app must also check the list in its route, as `/cuoc-xe` does.
-- **Files:** `reports/cuoc-xe/` is a copy of `cuoc-xe-dashboard/CUOC_XE_WEB/dist`. Only `.html`, `.js`, `.css`, `.png` and `.svg` files are served; hidden files and paths outside the folder return 404.
-- **Size:** `data.js` is ~24 MB. Next does not compress Route Handler responses, so the sync script writes `.gz` copies and the route sends those (~4 MB) to browsers that accept gzip.
+## Offline preview
 
-Monthly update:
+`npm run preview:html` bundles the current dashboard UI and the full report tree from `src/data/dashboard-data.ts` into `preview/dashboard.html`, which opens straight from disk (double-click) to check the layout without deploying. It skips the login, so it shows every report, including restricted ones. Login and logout do not work in it; the Hướng dẫn button opens `preview/huong-dan.html`, which plays the video and PDF straight from `docs/`. Rerun it after each change. `/preview` is gitignored; do not send the file outside the team.
 
-1. In `cuoc-xe-dashboard`, add the new month's files and run `CUOC_XE_WEB/CAP_NHAT_WEB.cmd` (see its `HUONG_DAN.md`).
-2. Here, run `npm run sync:cuoc-xe`. It reads `../cuoc-xe-dashboard/CUOC_XE_WEB/dist` by default; pass another path with `npm run sync:cuoc-xe -- <path>`.
-3. Commit `reports/cuoc-xe` and redeploy.
+**Xem trước sau khi sửa** (ví dụ sửa câu chữ, link, trạng thái trong `src/data/dashboard-data.ts`):
+
+1. Mở terminal trong VS Code (`` Ctrl+` ``) và chạy `npm run preview:html`.
+2. Đợi dòng `Đã tạo ...\preview\dashboard.html`.
+3. Mở `preview/dashboard.html` bằng Chrome/Edge (lần đầu thì double-click), những lần sau chỉ cần bấm F5.
+
+File xem trước không tự cập nhật: mỗi lần sửa xong phải chạy lại bước 1. Nếu lệnh báo lỗi kèm số dòng (thường do thiếu dấu `'` hoặc `,`), sửa dòng đó rồi chạy lại.
 
 ## Scripts
 
@@ -56,7 +56,7 @@ Monthly update:
 | `npm run lint`          | ESLint              |
 | `npm run typecheck`     | TypeScript check    |
 | `npm run format`        | Prettier            |
-| `npm run sync:cuoc-xe`  | Copy ride map build |
+| `npm run preview:html`  | Offline UI preview  |
 
 ## Deploy
 

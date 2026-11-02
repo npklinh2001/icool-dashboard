@@ -1,5 +1,4 @@
 import type { SourceNode } from '@/features/dashboard/types';
-import { CUOC_XE_ALLOWED_SALES } from '@/lib/auth/report-access';
 
 // Edit the report tree here. Server-only: it is passed to the client only after login.
 export const DASHBOARD_DATA: SourceNode = {
@@ -105,10 +104,10 @@ export const DASHBOARD_DATA: SourceNode = {
             },
             {
               name: 'Marcom & Design',
-              author: 'Lê Tuấn Khôi',
+              author: 'Hồ Phước Việt Nam',
               viewers: ['Ban Giám đốc', 'Trưởng phòng Marketing', 'Team Marcom & Design'],
-              url: '',
-              contact: '0945645996',
+              url: 'https://app.powerbi.com/Redirect?action=OpenReport&appId=1cfb56fd-867f-4c19-94a6-93fe7ba35cda&reportObjectId=f25e4efb-bed3-4b76-9ad1-89a8ca192688&ctid=b9f86305-291b-4050-9c47-58ac594b81f3&reportPage=9ddb4a2d4a5188a86c60&pbi_source=appShareLink&portalSessionId=ae23c019-05c8-482b-94f2-211c99b345c0',
+              contact: '0935342621',
               report: 'Báo cáo Marcom & Design',
               status: 'proposed',
               tool: 'Power BI',
@@ -120,10 +119,10 @@ export const DASHBOARD_DATA: SourceNode = {
             },
             {
               name: 'Brand',
-              author: 'Lê Tuấn Khôi',
+              author: 'Hồ Phước Việt Nam',
               viewers: ['Ban Giám đốc', 'Trưởng phòng Marketing', 'Team Brand'],
-              url: '',
-              contact: '0945645996',
+              url: 'https://app.powerbi.com/Redirect?action=OpenReport&appId=1cfb56fd-867f-4c19-94a6-93fe7ba35cda&reportObjectId=f25e4efb-bed3-4b76-9ad1-89a8ca192688&ctid=b9f86305-291b-4050-9c47-58ac594b81f3&reportPage=9ddb4a2d4a5188a86c60&pbi_source=appShareLink&portalSessionId=ae23c019-05c8-482b-94f2-211c99b345c0',
+              contact: '0935342621',
               report: 'Báo cáo Brand',
               status: 'proposed',
               tool: 'Power BI',
@@ -190,25 +189,6 @@ export const DASHBOARD_DATA: SourceNode = {
               info: 'Bỏ tua (HOTLINE & VÃNG LAI); FULL phòng; Tương quan giữa bỏ tua và số phòng',
               note: 'Chưa có KPI đề xuất riêng cho nhánh này.',
               kpis: [],
-            },
-          ],
-        },
-        {
-          name: 'Phát triển địa điểm',
-          children: [
-            {
-              name: 'Cuốc xe',
-              author: 'Lê Tuấn Khôi',
-              viewers: ['Ban giám đốc'],
-              url: '/cuoc-xe',
-              contact: '0945645996',
-              report: 'Báo cáo Cuốc xe',
-              status: 'live',
-              tool: 'Web',
-              info: 'Các cuốc xe đón khách tới, và đưa khách về nhà => Phân tích hành vi khách hàng',
-              kpis: [],
-              // Same list the /cuoc-xe route enforces
-              allowedSales: CUOC_XE_ALLOWED_SALES,
             },
           ],
         },
