@@ -297,6 +297,17 @@ export const DASHBOARD_DATA: SourceNode = {
           info: 'Nghiên cứu và phát triển.',
           kpis: ['Số sản phẩm mới', 'Tỉ lệ sản phẩm được triển khai', 'Doanh thu sản phẩm mới'],
         },
+        {
+          name: 'Tài sản',
+          author: 'Nguyễn Phan Khánh',
+          viewers: ['Ban Giám đốc', 'Phòng Tài sản'],
+          url: 'https://app.powerbi.com/Redirect?action=OpenApp&appId=a491e10d-07de-4791-86c1-a16760687860&ctid=b9f86305-291b-4050-9c47-58ac594b81f3&experience=power-bi',
+          contact: '0969320414',
+          status: 'live',
+          tool: 'Power BI',
+          info: 'Tài sản, chi phí tài sản.',
+          kpis: [{ t: 'Chi phí tài sản / doanh thu', hl: true }],
+        },
       ],
     },
     {
