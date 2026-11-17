@@ -510,6 +510,7 @@ export const DASHBOARD_DATA: SourceNode = {
           author: '',
           viewers: ['Kế toán trưởng', 'Khối Cung ứng'],
           url: 'https://app.powerbi.com/Redirect?action=OpenReport&appId=5063d252-b2bc-4d9a-ac1a-137f92c26289&reportObjectId=1c355f15-6d81-4984-a7e5-b9e940bfb104&ctid=b9f86305-291b-4050-9c47-58ac594b81f3&reportPage=59ad9161c6b2e6216600&pbi_source=appShareLink&portalSessionId=46c80a19-b2a9-4b82-bcc7-baccf2a2905f',
+          status: 'live',
           contact: '',
           info: 'Các loại hàng hóa.',
           kpis: ['Chênh lệch kiểm kê hàng hóa thực tế / sổ sách', 'Vòng quay hàng hóa'],
